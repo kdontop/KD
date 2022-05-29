@@ -1,0 +1,34 @@
+_G.autodrop = true
+_G.block = true
+_G.starteddropping = true
+_G.antiafk = true
+
+spawn(function()
+    while  wait() do
+        if _G.autodrop == true then 
+        local args = {[1] = "DropMoney",[2] = "100"}
+        game:GetService("ReplicatedStorage").MainEvent:FireServer(unpack(args))
+        end
+       end
+end)
+
+spawn(function()
+    if _G.block == true then
+    local args = {[1] = "Block",[2] = true}
+    game:GetService("ReplicatedStorage").MainEvent:FireServer(unpack(args))
+    end
+end)
+
+spawn(function()
+    local args = {[1] = "Started Dropping!",[2] = "All"}
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+end)
+
+spawn(function()
+    local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+wait(1)
+vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+end)
